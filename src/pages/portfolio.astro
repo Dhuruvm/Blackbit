@@ -1,3 +1,4 @@
+
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
@@ -7,53 +8,65 @@ import Button from '../components/atomic/Button.astro';
 
 const projects = [
   {
-    title: "E-commerce Platform Redesign",
-    category: "Web Development",
-    description: "Complete overhaul of an e-commerce platform serving 100K+ users",
-    image: "/projects/ecommerce.jpg",
-    slug: "ecommerce-platform"
+    title: "Pixel Quest Adventures",
+    category: "Indie Games",
+    description: "A retro-style RPG with pixel art graphics and engaging storylines",
+    image: "/projects/pixel-quest.jpg",
+    slug: "pixel-quest-adventures",
+    platforms: ["PC", "Steam", "Mobile"],
+    status: "Released"
   },
   {
-    title: "Brand Identity System",
-    category: "Design",
-    description: "Comprehensive brand identity for a fintech startup",
-    image: "/projects/brand.jpg",
-    slug: "brand-identity"
+    title: "ServerGuard Pro",
+    category: "Discord Bots",
+    description: "Advanced moderation and server management bot with AI-powered features",
+    image: "/projects/serverguard.jpg",
+    slug: "serverguard-pro",
+    platforms: ["Discord"],
+    status: "Active"
   },
   {
-    title: "Mobile App UI/UX",
-    category: "Design",
-    description: "User-centered design for a health and wellness mobile app",
-    image: "/projects/mobile-app.jpg",
-    slug: "mobile-app"
+    title: "Cosmic Runner",
+    category: "Mobile Games",
+    description: "Fast-paced endless runner set in a vibrant space environment",
+    image: "/projects/cosmic-runner.jpg",
+    slug: "cosmic-runner",
+    platforms: ["iOS", "Android"],
+    status: "Released"
   },
   {
-    title: "Website Performance Audit",
-    category: "Audits",
-    description: "Comprehensive audit resulting in 40% performance improvement",
-    image: "/projects/audit.jpg",
-    slug: "performance-audit"
+    title: "Community Hub Bot",
+    category: "Discord Bots",
+    description: "Feature-rich community management with events, polls, and analytics",
+    image: "/projects/community-hub.jpg",
+    slug: "community-hub-bot",
+    platforms: ["Discord"],
+    status: "Beta"
   },
   {
-    title: "Motion Graphics Campaign",
-    category: "Motion",
-    description: "Animated campaign for social media and digital platforms",
-    image: "/projects/motion.jpg",
-    slug: "motion-graphics"
+    title: "Neon Drift Racing",
+    category: "Web Apps",
+    description: "Browser-based racing game with real-time multiplayer support",
+    image: "/projects/neon-drift.jpg",
+    slug: "neon-drift-racing",
+    platforms: ["Web", "PWA"],
+    status: "In Development"
   },
   {
-    title: "SaaS Dashboard Development",
-    category: "Web Development",
-    description: "Modern dashboard with real-time data visualization",
-    image: "/projects/saas.jpg",
-    slug: "saas-dashboard"
+    title: "Economy Manager",
+    category: "Discord Bots",
+    description: "Comprehensive economy system for Discord servers with mini-games",
+    image: "/projects/economy-manager.jpg",
+    slug: "economy-manager",
+    platforms: ["Discord"],
+    status: "Released"
   },
 ];
 
-const categories = ["All", "Web Development", "Design", "Audits", "Motion"];
+const categories = ["All", "Indie Games", "Discord Bots", "Mobile Games", "Web Apps"];
 ---
 
-<BaseLayout title="Portfolio - Blackbit Studio" description="Explore our portfolio of exceptional digital projects">
+<BaseLayout title="Products - Blackbit Studio" description="Explore our innovative games and Discord bot products">
   <Navigation />
   
   <main class="pt-16 md:pt-20">
@@ -61,14 +74,14 @@ const categories = ["All", "Web Development", "Design", "Audits", "Motion"];
       <div class="container-custom">
         <div class="text-center mb-16">
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4">
-            Our <span class="text-gradient">Work</span>
+            Our <span class="text-gradient">Products</span>
           </h1>
           <p class="text-lg text-primary-text-secondary max-w-2xl mx-auto">
-            A showcase of our recent projects and case studies
+            Innovative games and digital products that bring communities together
           </p>
         </div>
         
-        <div class="flex flex-wrap justify-center gap-4 mb-12" role="tablist" aria-label="Project categories">
+        <div class="flex flex-wrap justify-center gap-4 mb-12" role="tablist" aria-label="Product categories">
           {categories.map((category) => (
             <button
               role="tab"
@@ -87,6 +100,9 @@ const categories = ["All", "Web Development", "Design", "Audits", "Motion"];
               <a href={`/portfolio/${project.slug}`} class="block">
                 <div class="aspect-video bg-primary-surface-elevated relative overflow-hidden">
                   <div class="absolute inset-0 bg-gradient-to-br from-accent-cyan/20 to-accent-magenta/20"></div>
+                  <div class="absolute top-2 left-2 px-3 py-1 bg-primary-bg/80 backdrop-blur-sm rounded-full text-xs">
+                    {project.status}
+                  </div>
                   <div class="absolute bottom-2 right-2 px-3 py-1 bg-primary-bg/80 backdrop-blur-sm rounded-full text-xs">
                     {project.category}
                   </div>
@@ -95,13 +111,34 @@ const categories = ["All", "Web Development", "Design", "Audits", "Motion"];
                   <h3 class="text-xl font-display font-semibold mb-2 group-hover:text-accent-cyan transition-colors">
                     {project.title}
                   </h3>
-                  <p class="text-primary-text-secondary">
+                  <p class="text-primary-text-secondary mb-3">
                     {project.description}
                   </p>
+                  <div class="flex flex-wrap gap-2">
+                    {project.platforms.map((platform) => (
+                      <span class="text-xs px-2 py-1 bg-accent-cyan/10 text-accent-cyan rounded">
+                        {platform}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </a>
             </Card>
           ))}
+        </div>
+        
+        <div class="text-center mt-16">
+          <Card class="max-w-3xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-display font-bold mb-4">
+              Want to collaborate on a project?
+            </h2>
+            <p class="text-primary-text-secondary mb-6">
+              We're always interested in partnering with other creators and studios
+            </p>
+            <Button href="/contact" variant="primary" size="lg">
+              Get in touch
+            </Button>
+          </Card>
         </div>
       </div>
     </section>

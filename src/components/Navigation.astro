@@ -3,9 +3,10 @@ import Button from './atomic/Button.astro';
 
 const navItems = [
   { name: 'Home', href: '/' },
-  { name: 'Portfolio', href: '/portfolio' },
-  { name: 'Services', href: '/services' },
   { name: 'About', href: '/about' },
+  { name: 'Products', href: '/services' },
+  { name: 'Portfolio', href: '/portfolio' },
+  { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ];
 ---
@@ -16,7 +17,7 @@ const navItems = [
       <a href="/" class="text-2xl font-display font-bold text-primary-text hover:text-accent-cyan transition-colors" aria-label="Blackbit Studio Home">
         BLACKBIT
       </a>
-      
+
       <div class="hidden md:flex items-center gap-8">
         {navItems.map((item) => (
           <a
@@ -27,13 +28,13 @@ const navItems = [
           </a>
         ))}
       </div>
-      
+
       <div class="hidden md:block">
         <Button href="/contact" variant="primary" size="sm" class="interactive-btn">
           Work with us
         </Button>
       </div>
-      
+
       <button
         id="mobile-menu-button"
         class="md:hidden p-2 text-primary-text hover:text-accent-cyan transition-colors"
@@ -46,7 +47,7 @@ const navItems = [
       </button>
     </div>
   </div>
-  
+
   <div id="mobile-menu" class="hidden md:hidden border-t border-primary-border bg-primary-surface">
     <div class="container-custom py-4 space-y-2">
       {navItems.map((item) => (
@@ -69,10 +70,10 @@ const navItems = [
 <script>
   const menuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
-  
+
   if (menuButton && mobileMenu) {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
+
     if (prefersReducedMotion) {
       menuButton.addEventListener('click', () => {
         const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
