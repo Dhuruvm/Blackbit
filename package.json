@@ -1,0 +1,34 @@
+{
+  "name": "blackbit-studio",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 5000",
+    "start": "astro dev --host 0.0.0.0 --port 5000",
+    "build": "astro check && astro build",
+    "preview": "astro preview --host 0.0.0.0 --port 5000",
+    "astro": "astro"
+  },
+  "keywords": [
+    "portfolio",
+    "marketing",
+    "astro"
+  ],
+  "author": "Blackbit Studio",
+  "license": "MIT",
+  "description": "Production-ready portfolio website for Blackbit Studio",
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/node": "^9.4.4",
+    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "@sanity/client": "^7.11.2",
+    "@sanity/image-url": "^1.2.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "astro": "^5.14.1",
+    "sharp": "^0.34.4",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.9.3",
+    "zod": "^3.25.76"
+  }
+}

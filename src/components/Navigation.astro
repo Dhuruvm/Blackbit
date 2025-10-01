@@ -1,0 +1,80 @@
+---
+import Button from './atomic/Button.astro';
+
+const navItems = [
+  { name: 'Home', href: '/' },
+  { name: 'Portfolio', href: '/portfolio' },
+  { name: 'Services', href: '/services' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+];
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-primary-bg/80 backdrop-blur-md border-b border-primary-border" aria-label="Main navigation">
+  <div class="container-custom">
+    <div class="flex items-center justify-between h-16 md:h-20">
+      <a href="/" class="text-2xl font-display font-bold text-primary-text hover:text-accent-cyan transition-colors" aria-label="Blackbit Studio Home">
+        BLACKBIT
+      </a>
+      
+      <div class="hidden md:flex items-center gap-8">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-primary-text hover:text-accent-cyan transition-colors"
+          >
+            {item.name}
+          </a>
+        ))}
+      </div>
+      
+      <div class="hidden md:block">
+        <Button href="/contact" variant="primary" size="sm">
+          Work with us
+        </Button>
+      </div>
+      
+      <button
+        id="mobile-menu-button"
+        class="md:hidden p-2 text-primary-text hover:text-accent-cyan transition-colors"
+        aria-label="Toggle mobile menu"
+        aria-expanded="false"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <div id="mobile-menu" class="hidden md:hidden border-t border-primary-border bg-primary-surface">
+    <div class="container-custom py-4 space-y-2">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="block px-4 py-2 text-primary-text hover:text-accent-cyan hover:bg-primary-surface-elevated rounded-lg transition-colors"
+        >
+          {item.name}
+        </a>
+      ))}
+      <div class="px-4 pt-2">
+        <Button href="/contact" variant="primary" size="sm" class="w-full">
+          Work with us
+        </Button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (menuButton && mobileMenu) {
+    menuButton.addEventListener('click', () => {
+      const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', (!isExpanded).toString());
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+</script>

@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-primary-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  body {
+    @apply bg-primary-bg text-primary-text font-sans antialiased;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent-cyan;
+  }
+
+  ::selection {
+    @apply bg-accent-cyan/20 text-accent-cyan;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent-cyan to-accent-magenta bg-clip-text text-transparent;
+  }
+
+  .btn-focus {
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-cyan;
+  }
+
+  .card {
+    @apply bg-primary-surface border border-primary-border rounded-xl p-6;
+  }
+
+  .card-hover {
+    @apply transition-all duration-[260ms] hover:border-accent-cyan/50 hover:shadow-glow;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
