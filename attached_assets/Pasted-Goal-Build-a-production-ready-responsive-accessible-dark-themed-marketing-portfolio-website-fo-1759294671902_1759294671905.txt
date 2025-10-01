@@ -1,0 +1,170 @@
+Goal: Build a production-ready, responsive, accessible, dark-themed marketing + portfolio website for Blackbit Studio. The site must be fast (LCP < 2.5s, INP < 200ms, CLS < 0.1), accessible (WCAG 2.2 AA), SEO-friendly, and easy for non-technical editors to update via headless CMS. Use modern dev workflows (Vite / Astro or Next, Tailwind CSS, Git, CI). Deliver a deployable repo and clear deployment instructions for Replit hosting (or Vercel/Netlify as optional).
+
+Decisions & defaults (agent may deviate only if it documents why):
+
+Framework: Use Astro (islands architecture) by default for max performance; if the agent deems Next.js necessary for a requested feature, mention tradeoffs and get approval.
+
+Styling: Tailwind CSS + design tokens (JSON). Provide a token file with colors, spacing, type scale, radii and shadows.
+
+Colors / theme: Primary background ~ #0d0d0f (soft black), surface dark #121214, text #E6E6E6, accent neon cyan #00E5FF (or magenta alternative). Include light mode toggle but primary experience = dark. Avoid pure #000 for large surfaces.
+
+Animations: Use Lottie/Rive for hero micro-animations; Framer Motion for component transitions when necessary. Keep JS budget small (islands hydration only).
+
+CMS: Integrate Sanity (or Strapi if the user prefers open-source self-hosting). Provide content schemas for: Projects, Services, Blog, Team, Testimonials, Site Settings.
+
+Images & media: Serve AVIF or WebP; generate responsive srcsets. Use lazy loading and placeholder (blur) technique.
+
+Fonts: Use variable fonts where possible; preload critical fonts and use font-display: swap. Limit 1–2 font families.
+
+Forms: Contact form should use serverless endpoint (validate & sanitize server-side), include spam protection (honeypot + recaptcha optional). Store submissions in CMS or send via email webhook.
+
+PWA: Add basic PWA manifest & service worker for offline brochure experience and mobile installability.
+
+Analytics & privacy: Implement GA4 or privacy-first analytics (Plausible) with consent banner. Provide server-side analytics option.
+
+SEO: Generate sitemap.xml, robots.txt. Add structured data for Organization, WebSite, BreadcrumbList, and Project schema for portfolio items. Implement OpenGraph and Twitter cards.
+
+Testing & CI: Add Lighthouse CI scripts and unit tests for critical components. Add GitHub/Gitlab/Replit CI step to run build & Lighthouse score gating.
+
+Accessibility: Provide a11y report (axe or Pa11y) and fix high-impact issues. Ensure keyboard navigation & focus styles.
+
+Dev workflow: Project must include README with setup, build, deployment commands and environment variables documented. Use git and create a deployable branch (main).
+
+
+Directory & code structure (required):
+
+/ (repo root)
+├─ src/
+│  ├─ components/ (atomic components + accessible primitives)
+│  ├─ layouts/
+│  ├─ pages/ (home, portfolio, services, about, blog, contact, legal)
+│  ├─ styles/ (tailwind + design tokens)
+│  └─ assets/
+├─ content/ (sanity schemas or headless CMS mapping)
+├─ public/
+├─ scripts/ (build, predeploy)
+├─ .replit or vercel.json (deployment config)
+└─ README.md
+
+Pages & required sections
+
+Home (hero): full-bleed dark hero, short tagline, Lottie/Rive microanimation on the right, CTA “Work with us” and “See portfolio”. Include quick stats (clients, years, awards).
+
+Portfolio / Work: Filterable gallery with case study pages. Each case study: challenge → approach → results → tech & roles → media carousel (optimized images/video). Add “related work”.
+
+Services: Clear cards for services (Design, Web Development, Audits, Motion), each with short description and CTA to project inquiry.
+
+About / Team: Short agency story, values, team bios; photos should be circular, accessible alt text, and lazy-loaded.
+
+Blog / Insights: CMS-driven articles, tags, author info, reading time meta.
+
+Contact: Contact form + map embed (optional) + booking link (Calendly) option. Include alt contact (email/phone).
+
+Case Study (detailed): templated through CMS.
+
+Footer: social links, legal links, newsletter signup.
+
+
+Design & UI details
+
+Use a modular component system (Button, Card, Modal, Grid, Hero, Nav, Footer). Buttons must have visible focus outlines.
+
+Provide responsive breakpoints: sm (640), md (768), lg (1024), xl (1280).
+
+Provide interaction states (hover, active, focus) and motion specs (duration 160–260ms, easing cubic-bezier).
+
+Provide a dark palette + an accent palette and a neutral palette as tokens. Submit a token JSON file.
+
+
+Performance & Lighthouse targets
+
+LCP target: ≤ 2.5s on 3G emulated mobile (optimistic).
+
+INP target: ≤ 200ms.
+
+CLS target: ≤ 0.1.
+
+Bundle JS shipped to client should be minimized: aim for <100KB total where possible, and islands-only hydration for interactive widgets.
+
+Images: responsive srcset + AVIF fallbacks. Fonts: preload and subset.
+
+
+Accessibility & WCAG
+
+Aim for WCAG 2.2 AA. Include an a11y-report (axe) in PR. Ensure color contrast meets 4.5:1 for body text. Avoid pure black backgrounds for long text areas.
+
+
+Testing & QA
+
+Run unit/component tests for Nav, ContactForm (validation), and Portfolio item component.
+
+Run automated a11y tests (axe) in CI and include Lighthouse CI run.
+
+
+Deliverables
+
+1. Git repo with clean commits and clear README (how to run locally, env vars).
+
+
+2. Deployed staging URL (Replit or Vercel).
+
+
+3. CMS admin credentials (or instructions to connect).
+
+
+4. Design tokens JSON + Storybook (or component preview) for major components.
+
+
+5. Lighthouse report and axe accessibility report.
+
+
+6. Short maintenance doc: how to add a project, update hero, and deploy new content.
+
+
+
+Acceptance criteria (must pass all):
+
+Site builds & deploys on Replit/Vercel with provided instructions.
+
+Lighthouse score: Performance ≥ 90, Accessibility ≥ 90, Best Practices ≥ 90, SEO ≥ 90 (or agent documents exact gaps).
+
+All pages mobile-responsive and keyboard navigable.
+
+CMS connection works; editor can create a project and it appears on /portfolio.
+
+Contact form sends/records messages and input validation works.
+
+
+Extra (nice-to-have if time/budget allows):
+
+Dark/light theme toggle with persisted user preference.
+
+Server-side rendered RSS feed & email newsletter integration.
+
+Simple A/B test on hero CTA copy using feature flags (split test).
+
+
+Notes for the builder:
+
+Keep the JS budget small; prefer HTML/CSS for layout and animations where possible. Hydrate only the necessary islands.
+
+Document any tradeoffs (e.g., if choosing Next.js over Astro) and explain the reason clearly in the README.
+
+Use semantic HTML and add aria attributes where applicable.
+
+
+Commands to include in README:
+
+pnpm install or npm install
+
+pnpm dev or npm run dev
+
+pnpm build / npm run build
+
+pnpm preview / npm run preview
+
+pnpm lint / pnpm test
+
+
+Deliver the repo URL + deployed URL + short summary message when done.
+
