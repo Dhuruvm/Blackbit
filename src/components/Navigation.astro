@@ -10,7 +10,7 @@ const navItems = [
 ];
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 bg-primary-bg/80 backdrop-blur-md border-b border-primary-border" aria-label="Main navigation">
+<nav class="main-nav fixed top-0 left-0 right-0 z-50 bg-primary-bg/80 backdrop-blur-md border-b border-primary-border transition-all duration-300" aria-label="Main navigation">
   <div class="container-custom">
     <div class="flex items-center justify-between h-16 md:h-20">
       <a href="/" class="text-2xl font-display font-bold text-primary-text hover:text-accent-cyan transition-colors" aria-label="Blackbit Studio Home">
@@ -21,7 +21,7 @@ const navItems = [
         {navItems.map((item) => (
           <a
             href={item.href}
-            class="text-primary-text hover:text-accent-cyan transition-colors"
+            class="nav-item text-primary-text hover:text-accent-cyan transition-colors"
           >
             {item.name}
           </a>
@@ -29,7 +29,7 @@ const navItems = [
       </div>
       
       <div class="hidden md:block">
-        <Button href="/contact" variant="primary" size="sm">
+        <Button href="/contact" variant="primary" size="sm" class="interactive-btn">
           Work with us
         </Button>
       </div>
@@ -71,10 +71,14 @@ const navItems = [
   const mobileMenu = document.getElementById('mobile-menu');
   
   if (menuButton && mobileMenu) {
-    menuButton.addEventListener('click', () => {
-      const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-      menuButton.setAttribute('aria-expanded', (!isExpanded).toString());
-      mobileMenu.classList.toggle('hidden');
-    });
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (prefersReducedMotion) {
+      menuButton.addEventListener('click', () => {
+        const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', (!isExpanded).toString());
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
   }
 </script>
