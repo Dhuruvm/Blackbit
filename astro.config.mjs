@@ -55,7 +55,7 @@ export default defineConfig({
     }),
     sitemap(),
   ],
-  output: 'static',
+  output: 'server',
   adapter: node({
     mode: 'standalone'
   }),
