@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import Button from '../../components/atomic/Button.astro';
+
+export async function getStaticPaths() {
+  const projects = [
+    {
+      slug: "ecommerce-platform",
+      title: "E-commerce Platform Redesign",
+      category: "Web Development",
+      description: "Complete overhaul of an e-commerce platform serving 100K+ users",
+      challenge: "The existing platform suffered from poor user experience, slow performance, and high cart abandonment rates. The legacy codebase was difficult to maintain and lacked modern features.",
+      approach: "We conducted user research, redesigned the entire user flow, rebuilt the platform using modern technologies, and implemented performance optimizations. The new design prioritized mobile users and streamlined the checkout process.",
+      results: [
+        "40% reduction in cart abandonment",
+        "60% improvement in page load times",
+        "25% increase in mobile conversions",
+        "95% positive user satisfaction score"
+      ],
+      tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
+      year: "2024"
+    },
+    {
+      slug: "brand-identity",
+      title: "Brand Identity System",
+      category: "Design",
+      description: "Comprehensive brand identity for a fintech startup",
+      challenge: "A new fintech startup needed a complete brand identity that would establish trust and stand out in a crowded market while appealing to both consumers and enterprise clients.",
+      approach: "We developed a comprehensive brand strategy, created a distinctive visual identity, designed a flexible logo system, and established brand guidelines covering all touchpoints from digital to print.",
+      results: [
+        "Successful brand launch across 5 markets",
+        "80% brand recognition in target audience",
+        "Featured in 3 major design publications",
+        "Increased investor confidence"
+      ],
+      tech: ["Figma", "Illustrator", "After Effects"],
+      year: "2023"
+    },
+  ];
+  
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout title={`${project.title} - Blackbit Studio`} description={project.description}>
+  <Navigation />
+  
+  <main class="pt-16 md:pt-20">
+    <section class="section-padding">
+      <div class="container-custom max-w-4xl">
+        <div class="mb-8">
+          <a href="/portfolio" class="text-accent-cyan hover:underline inline-flex items-center gap-2 mb-4">
+            ← Back to Portfolio
+          </a>
+          <div class="flex items-center gap-4 mb-4 text-sm text-primary-text-secondary">
+            <span class="px-3 py-1 rounded-full bg-accent-cyan/10 text-accent-cyan">{project.category}</span>
+            <span>{project.year}</span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">{project.title}</h1>
+          <p class="text-xl text-primary-text-secondary">{project.description}</p>
+        </div>
+        
+        <div class="aspect-video bg-gradient-to-br from-accent-cyan/20 to-accent-magenta/20 rounded-xl mb-12"></div>
+        
+        <div class="space-y-12">
+          <div>
+            <h2 class="text-2xl font-display font-bold mb-4">The Challenge</h2>
+            <p class="text-primary-text-secondary">{project.challenge}</p>
+          </div>
+          
+          <div>
+            <h2 class="text-2xl font-display font-bold mb-4">Our Approach</h2>
+            <p class="text-primary-text-secondary">{project.approach}</p>
+          </div>
+          
+          <div>
+            <h2 class="text-2xl font-display font-bold mb-4">Results</h2>
+            <ul class="grid md:grid-cols-2 gap-4">
+              {project.results.map((result) => (
+                <li class="flex items-start gap-3 p-4 rounded-lg bg-primary-surface border border-primary-border">
+                  <svg class="w-6 h-6 text-accent-cyan flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{result}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          <div>
+            <h2 class="text-2xl font-display font-bold mb-4">Technologies</h2>
+            <div class="flex flex-wrap gap-2">
+              {project.tech.map((tech) => (
+                <span class="px-4 py-2 rounded-lg bg-primary-surface border border-primary-border">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          <div class="pt-8 border-t border-primary-border text-center">
+            <h3 class="text-2xl font-display font-bold mb-4">Ready to start your project?</h3>
+            <Button href="/contact" variant="primary" size="lg">
+              Get in touch
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</BaseLayout>

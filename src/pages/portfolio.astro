@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import Card from '../components/atomic/Card.astro';
+import Button from '../components/atomic/Button.astro';
+
+const projects = [
+  {
+    title: "E-commerce Platform Redesign",
+    category: "Web Development",
+    description: "Complete overhaul of an e-commerce platform serving 100K+ users",
+    image: "/projects/ecommerce.jpg",
+    slug: "ecommerce-platform"
+  },
+  {
+    title: "Brand Identity System",
+    category: "Design",
+    description: "Comprehensive brand identity for a fintech startup",
+    image: "/projects/brand.jpg",
+    slug: "brand-identity"
+  },
+  {
+    title: "Mobile App UI/UX",
+    category: "Design",
+    description: "User-centered design for a health and wellness mobile app",
+    image: "/projects/mobile-app.jpg",
+    slug: "mobile-app"
+  },
+  {
+    title: "Website Performance Audit",
+    category: "Audits",
+    description: "Comprehensive audit resulting in 40% performance improvement",
+    image: "/projects/audit.jpg",
+    slug: "performance-audit"
+  },
+  {
+    title: "Motion Graphics Campaign",
+    category: "Motion",
+    description: "Animated campaign for social media and digital platforms",
+    image: "/projects/motion.jpg",
+    slug: "motion-graphics"
+  },
+  {
+    title: "SaaS Dashboard Development",
+    category: "Web Development",
+    description: "Modern dashboard with real-time data visualization",
+    image: "/projects/saas.jpg",
+    slug: "saas-dashboard"
+  },
+];
+
+const categories = ["All", "Web Development", "Design", "Audits", "Motion"];
+---
+
+<BaseLayout title="Portfolio - Blackbit Studio" description="Explore our portfolio of exceptional digital projects">
+  <Navigation />
+  
+  <main class="pt-16 md:pt-20">
+    <section class="section-padding">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4">
+            Our <span class="text-gradient">Work</span>
+          </h1>
+          <p class="text-lg text-primary-text-secondary max-w-2xl mx-auto">
+            A showcase of our recent projects and case studies
+          </p>
+        </div>
+        
+        <div class="flex flex-wrap justify-center gap-4 mb-12" role="tablist" aria-label="Project categories">
+          {categories.map((category) => (
+            <button
+              role="tab"
+              aria-selected={category === "All" ? "true" : "false"}
+              class="px-6 py-2 rounded-lg border border-primary-border bg-primary-surface hover:border-accent-cyan transition-colors data-[active]:border-accent-cyan data-[active]:text-accent-cyan"
+              data-category={category}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+          {projects.map((project) => (
+            <Card hover={true} class="group overflow-hidden p-0" data-category={project.category}>
+              <a href={`/portfolio/${project.slug}`} class="block">
+                <div class="aspect-video bg-primary-surface-elevated relative overflow-hidden">
+                  <div class="absolute inset-0 bg-gradient-to-br from-accent-cyan/20 to-accent-magenta/20"></div>
+                  <div class="absolute bottom-2 right-2 px-3 py-1 bg-primary-bg/80 backdrop-blur-sm rounded-full text-xs">
+                    {project.category}
+                  </div>
+                </div>
+                <div class="p-6">
+                  <h3 class="text-xl font-display font-semibold mb-2 group-hover:text-accent-cyan transition-colors">
+                    {project.title}
+                  </h3>
+                  <p class="text-primary-text-secondary">
+                    {project.description}
+                  </p>
+                </div>
+              </a>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll('[data-category]');
+  const projectCards = document.querySelectorAll('#projects-grid > div[data-category]');
+  
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.getAttribute('data-category');
+      
+      buttons.forEach(b => {
+        b.setAttribute('aria-selected', 'false');
+        b.removeAttribute('data-active');
+      });
+      button.setAttribute('aria-selected', 'true');
+      button.setAttribute('data-active', '');
+      
+      projectCards.forEach(card => {
+        if (category === 'All' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

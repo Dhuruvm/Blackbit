@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import Card from '../components/atomic/Card.astro';
+import { formatDate } from '../utils/helpers';
+
+const posts = [
+  {
+    title: "The Future of Web Design in 2024",
+    slug: "future-web-design-2024",
+    excerpt: "Exploring emerging trends and technologies shaping the next generation of web experiences",
+    publishedAt: "2024-03-15",
+    author: "Alex Chen",
+    category: "Design",
+    readingTime: 5
+  },
+  {
+    title: "Building Accessible Web Applications",
+    slug: "building-accessible-web-apps",
+    excerpt: "A comprehensive guide to creating inclusive digital experiences for all users",
+    publishedAt: "2024-03-10",
+    author: "Michael Torres",
+    category: "Development",
+    readingTime: 8
+  },
+  {
+    title: "Performance Optimization Strategies",
+    slug: "performance-optimization",
+    excerpt: "Proven techniques to improve web performance and deliver faster user experiences",
+    publishedAt: "2024-03-05",
+    author: "Sarah Johnson",
+    category: "Development",
+    readingTime: 6
+  },
+  {
+    title: "Motion Design Principles",
+    slug: "motion-design-principles",
+    excerpt: "Understanding the fundamentals of effective motion design for digital products",
+    publishedAt: "2024-02-28",
+    author: "Emily Zhang",
+    category: "Motion",
+    readingTime: 4
+  },
+];
+---
+
+<BaseLayout title="Blog - Blackbit Studio" description="Insights and articles on design, development, and digital trends">
+  <Navigation />
+  
+  <main class="pt-16 md:pt-20">
+    <section class="section-padding">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4">
+            <span class="text-gradient">Insights</span>
+          </h1>
+          <p class="text-lg text-primary-text-secondary max-w-2xl mx-auto">
+            Articles and thoughts on design, development, and digital trends
+          </p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto space-y-8">
+          {posts.map((post) => (
+            <Card hover={true}>
+              <article>
+                <div class="flex flex-wrap items-center gap-4 mb-3 text-sm text-primary-text-secondary">
+                  <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+                  <span>•</span>
+                  <span>{post.readingTime} min read</span>
+                  <span>•</span>
+                  <span class="px-3 py-1 rounded-full bg-accent-cyan/10 text-accent-cyan">{post.category}</span>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-display font-bold mb-3">
+                  <a href={`/blog/${post.slug}`} class="hover:text-accent-cyan transition-colors">
+                    {post.title}
+                  </a>
+                </h2>
+                <p class="text-primary-text-secondary mb-4">{post.excerpt}</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-primary-text-secondary">By {post.author}</span>
+                  <a
+                    href={`/blog/${post.slug}`}
+                    class="text-accent-cyan hover:underline font-medium"
+                  >
+                    Read more →
+                  </a>
+                </div>
+              </article>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</BaseLayout>

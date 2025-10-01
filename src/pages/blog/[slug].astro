@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import { formatDate } from '../../utils/helpers';
+
+export async function getStaticPaths() {
+  const posts = [
+    {
+      slug: "future-web-design-2024",
+      title: "The Future of Web Design in 2024",
+      excerpt: "Exploring emerging trends and technologies shaping the next generation of web experiences",
+      publishedAt: "2024-03-15",
+      author: "Alex Chen",
+      category: "Design",
+      readingTime: 5,
+      content: `
+        <p>Web design is evolving at an unprecedented pace, driven by advances in technology, changing user expectations, and new creative possibilities. As we move through 2024, several key trends are emerging that will shape how we design and build web experiences.</p>
+        
+        <h2>AI-Powered Design Tools</h2>
+        <p>Artificial intelligence is revolutionizing the design process, from generating layouts to optimizing user experiences. Tools like Figma's AI features and Midjourney are becoming integral parts of the designer's toolkit, allowing for rapid prototyping and iteration.</p>
+        
+        <h2>Immersive 3D Experiences</h2>
+        <p>WebGL and Three.js have matured to the point where rich 3D experiences are becoming commonplace on the web. From product visualizations to interactive storytelling, 3D is no longer just for gaming—it's a core component of modern web design.</p>
+        
+        <h2>Performance-First Design</h2>
+        <p>With Core Web Vitals becoming critical ranking factors, performance is no longer optional. Designers must think about loading times, interaction responsiveness, and visual stability from the very beginning of the design process.</p>
+        
+        <h2>Inclusive and Accessible Design</h2>
+        <p>Accessibility is moving from compliance checkbox to design principle. The best designs in 2024 will be those that work beautifully for everyone, regardless of ability or context of use.</p>
+      `
+    },
+    {
+      slug: "building-accessible-web-apps",
+      title: "Building Accessible Web Applications",
+      excerpt: "A comprehensive guide to creating inclusive digital experiences for all users",
+      publishedAt: "2024-03-10",
+      author: "Michael Torres",
+      category: "Development",
+      readingTime: 8,
+      content: `
+        <p>Building accessible web applications isn't just about compliance—it's about creating experiences that work for everyone. This guide covers the fundamental principles and practical techniques for building inclusive web applications.</p>
+        
+        <h2>Understanding WCAG Guidelines</h2>
+        <p>The Web Content Accessibility Guidelines (WCAG) provide a framework for creating accessible content. Understanding these guidelines and their levels (A, AA, AAA) is crucial for any web developer.</p>
+        
+        <h2>Semantic HTML</h2>
+        <p>Using proper HTML elements is the foundation of accessibility. Semantic HTML provides structure and meaning that assistive technologies can interpret, making your content accessible to screen readers and other assistive devices.</p>
+        
+        <h2>Keyboard Navigation</h2>
+        <p>Not all users can use a mouse. Ensuring your application is fully navigable via keyboard is essential. This includes visible focus indicators, logical tab order, and keyboard shortcuts for common actions.</p>
+        
+        <h2>Color and Contrast</h2>
+        <p>Sufficient color contrast is crucial for users with visual impairments. Tools like the WebAIM Contrast Checker can help ensure your color choices meet WCAG standards.</p>
+      `
+    },
+  ];
+  
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<BaseLayout title={`${post.title} - Blackbit Studio Blog`} description={post.excerpt}>
+  <Navigation />
+  
+  <main class="pt-16 md:pt-20">
+    <article class="section-padding">
+      <div class="container-custom max-w-3xl">
+        <div class="mb-8">
+          <a href="/blog" class="text-accent-cyan hover:underline inline-flex items-center gap-2 mb-4">
+            ← Back to Blog
+          </a>
+          <div class="flex flex-wrap items-center gap-4 mb-4 text-sm text-primary-text-secondary">
+            <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+            <span>•</span>
+            <span>{post.readingTime} min read</span>
+            <span>•</span>
+            <span class="px-3 py-1 rounded-full bg-accent-cyan/10 text-accent-cyan">{post.category}</span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">{post.title}</h1>
+          <p class="text-xl text-primary-text-secondary mb-6">{post.excerpt}</p>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-accent-cyan/20 to-accent-magenta/20 flex items-center justify-center font-display font-bold text-accent-cyan">
+              {post.author.split(' ').map(n => n[0]).join('')}
+            </div>
+            <div>
+              <div class="font-medium">{post.author}</div>
+              <div class="text-sm text-primary-text-secondary">Author</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="aspect-video bg-gradient-to-br from-accent-cyan/20 to-accent-magenta/20 rounded-xl mb-12"></div>
+        
+        <div class="prose prose-invert prose-lg max-w-none" set:html={post.content} />
+        
+        <div class="mt-12 pt-8 border-t border-primary-border">
+          <h3 class="text-xl font-display font-bold mb-4">Share this article</h3>
+          <div class="flex gap-4">
+            <a href="#" class="px-4 py-2 rounded-lg bg-primary-surface border border-primary-border hover:border-accent-cyan transition-colors">
+              Twitter
+            </a>
+            <a href="#" class="px-4 py-2 rounded-lg bg-primary-surface border border-primary-border hover:border-accent-cyan transition-colors">
+              LinkedIn
+            </a>
+            <a href="#" class="px-4 py-2 rounded-lg bg-primary-surface border border-primary-border hover:border-accent-cyan transition-colors">
+              Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+  
+  <Footer />
+</BaseLayout>

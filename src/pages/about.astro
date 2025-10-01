@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import Card from '../components/atomic/Card.astro';
+
+const team = [
+  {
+    name: "Alex Chen",
+    role: "Creative Director",
+    bio: "10+ years in digital design, passionate about creating user-centric experiences",
+    image: "/team/alex.jpg"
+  },
+  {
+    name: "Sarah Johnson",
+    role: "Lead Developer",
+    bio: "Full-stack engineer specializing in modern web technologies and performance",
+    image: "/team/sarah.jpg"
+  },
+  {
+    name: "Michael Torres",
+    role: "UX Strategist",
+    bio: "Human-centered design advocate with a focus on accessibility and inclusion",
+    image: "/team/michael.jpg"
+  },
+  {
+    name: "Emily Zhang",
+    role: "Motion Designer",
+    bio: "Animator and visual storyteller bringing brands to life through motion",
+    image: "/team/emily.jpg"
+  },
+];
+
+const values = [
+  {
+    title: "User-Centric",
+    description: "We prioritize user needs and experiences in every decision we make"
+  },
+  {
+    title: "Innovation",
+    description: "We embrace new technologies and creative approaches to solve problems"
+  },
+  {
+    title: "Quality",
+    description: "We maintain the highest standards in every project we deliver"
+  },
+  {
+    title: "Collaboration",
+    description: "We work closely with clients as partners to achieve shared goals"
+  },
+];
+---
+
+<BaseLayout title="About - Blackbit Studio" description="Learn about our team, values, and mission">
+  <Navigation />
+  
+  <main class="pt-16 md:pt-20">
+    <section class="section-padding">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4">
+            About <span class="text-gradient">Us</span>
+          </h1>
+          <p class="text-lg text-primary-text-secondary max-w-2xl mx-auto">
+            We're a team of passionate designers, developers, and strategists dedicated to creating exceptional digital experiences
+          </p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto mb-24">
+          <Card>
+            <h2 class="text-2xl md:text-3xl font-display font-bold mb-4">Our Story</h2>
+            <div class="prose prose-invert max-w-none">
+              <p class="text-primary-text-secondary mb-4">
+                Founded in 2014, Blackbit Studio began with a simple mission: to bridge the gap between beautiful design and powerful technology. What started as a small team of two has grown into a full-service digital studio with over 15 talented professionals.
+              </p>
+              <p class="text-primary-text-secondary mb-4">
+                Over the years, we've had the privilege of working with startups, established brands, and everything in between. We've helped launch products, rebrand companies, and build platforms that serve millions of users.
+              </p>
+              <p class="text-primary-text-secondary">
+                Today, we're proud to be recognized as industry leaders in digital design and development, but we remain committed to our founding principles: collaboration, innovation, and an unwavering focus on quality.
+              </p>
+            </div>
+          </Card>
+        </div>
+        
+        <div class="mb-24">
+          <h2 class="text-3xl md:text-4xl font-display font-bold text-center mb-12">Our Values</h2>
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((value) => (
+              <Card>
+                <h3 class="text-xl font-display font-semibold mb-2">{value.title}</h3>
+                <p class="text-primary-text-secondary">{value.description}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+        
+        <div>
+          <h2 class="text-3xl md:text-4xl font-display font-bold text-center mb-12">Meet the Team</h2>
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {team.map((member) => (
+              <Card class="text-center">
+                <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-accent-cyan/20 to-accent-magenta/20 overflow-hidden">
+                  <div class="w-full h-full flex items-center justify-center text-4xl font-display font-bold text-accent-cyan">
+                    {member.name.split(' ').map(n => n[0]).join('')}
+                  </div>
+                </div>
+                <h3 class="text-xl font-display font-semibold mb-1">{member.name}</h3>
+                <p class="text-accent-cyan text-sm mb-3">{member.role}</p>
+                <p class="text-primary-text-secondary text-sm">{member.bio}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</BaseLayout>
